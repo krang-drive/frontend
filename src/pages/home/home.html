@@ -1,0 +1,65 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>Find A Route</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button block large (click)="goOnline()" [ngStyle]="{'background-color': buttonColor}">
+          <span *ngIf="(!online); else isOnline">
+            GO ONLINE
+            <span style="flex: 1 1 auto"></span>
+            <ion-icon name="compass"></ion-icon>
+          </span>
+          <ng-template #isOnline>
+            GO OFFLINE
+          </ng-template>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <div *ngIf="online; else notSearching">
+          <div *ngIf="assignedRoute; else loading">
+            <ion-card>
+              <ion-card-header style="border-bottom: 5px solid black">
+                Route Details
+              </ion-card-header>
+
+              <ion-list>
+                <div ion-item><ion-icon name="home" item-start></ion-icon>Package Facility</div>
+                <div ion-item *ngFor="let address of assignedRoute.locs">
+                  <ion-icon name="map" item-start></ion-icon>
+                  {{address}}
+                </div>
+
+              </ion-list>
+            </ion-card>
+            <div style="width: 60%; text-align: center; margin: auto auto">
+              <button ion-button class="menubutton" (click)="acceptOffer()">Accept</button>
+              <button ion-button class="declinebutton" (click)="declineOffer()">Decline</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #loading>
+          <div class="loader"></div>
+          <h2 style="text-align: center">Finding You a Route</h2>
+        </ng-template>
+        <ng-template #notSearching style="text-align: center">
+          <ion-icon name="car" class="caricon"></ion-icon>
+          <h2>Not Online! Go Online to Receive a Delivery Route</h2>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+
+
+
+
+
